@@ -77,7 +77,7 @@ def run_cltem(cif, setup, outdir, files_to_copy, other_args_string):
 
    # dump the config into a temporary json file
    tmpconf = tmp + "/config.json"
-   with open(tmpconf, 'w') as cfg: json.dump(setup.config, cfg, indent = 4, sort_keys=True, ensure_ascii=False)
+   with open(tmpconf, 'w') as cfg: json.dump(setup.config, cfg, indent = 4, sort_keys=True, ensure_ascii=True)
 
    # create the output directories
    tmpout = '{}/{}'.format(tmp, 'outdir'); os.mkdir(tmpout); os.makedirs(outdir, exist_ok=True)
@@ -85,7 +85,7 @@ def run_cltem(cif, setup, outdir, files_to_copy, other_args_string):
    command = 'clTEM_cmd {} -c {} -o {} {}'.format(cif, tmpconf, tmpout, other_args_string)
    print('command passed to clTEM:\n "{}"'.format(command))
 
-   postproc_command = 'cp {}/{{{}}} {} 2>/dev/null'.format(tmpout, files_to_copy, outdir)
+   postproc_command = ' && '.join(['cp {}/{} {} 2>/dev/null'.format(tmpout, fil, outdir) for fil in files_to_copy.split(',')])
    print('postprocessing command:\n "{}"'.format(postproc_command))
 
    print("\n... Launching clTEM ...\n")
@@ -144,7 +144,7 @@ def run_batch(cif=None, config=None, config_extra=None, outdir='outdir', files_t
        if (arg=='outdir' and val): outdir = val
 
        # change the output directory
-       if (arg=='files-to-copy' and val): files_to_copy = val
+       if (arg=='files_to_copy' and val): files_to_copy = val
    
    cif = args.cif
    other_args_string = ' '.join(unknown_args)
