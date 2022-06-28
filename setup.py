@@ -8,7 +8,8 @@ setuptools.setup(
     description = "A wrapper for creating templated workflows for clTEM code",
     # Dependencies/Other modules required for your package to work
     install_requires=['pathlib', 'deepdiff', 'argparse'],
-    # Projects you want to include in your Package
+    package_data={'': ['default_config.json']},
+    include_package_data=True,
     packages=setuptools.find_packages(),
     entry_points={
         'console_scripts': [
