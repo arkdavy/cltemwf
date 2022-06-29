@@ -8,6 +8,7 @@
 # Add clTEM_cmd into the environent if installed with the module system
 module purge
 module load GCC/10.2.0 CUDA/11.1.1 OpenMPI/4.0.5
+module load Python/3.8.6
 module load clTEM/0.3.4
 
 # the whole config can be provided as a string of dictionary, as here, or via a path to a new config.
