@@ -123,21 +123,21 @@
     "resolution": 1024,
     "simulation area": {
         "x": {
-            "finish": 10.0,
-            "padding": 5.0,
-            "start": 0.0,
+            "finish": 18.600000381469727,
+            "padding": 8.0,
+            "start": 2.6000003814697266,
             "units": "\u00c5"
         },
         "y": {
-            "finish": 10.0,
-            "padding": 5.0,
-            "start": 1.0,
+            "finish": 18.100000381469727,
+            "padding": 8.0,
+            "start": 2.1000003814697266,
             "units": "\u00c5"
         },
         "z": {
-            "finish": 10.0,
-            "padding": 5.0,
-            "start": 1.0,
+            "finish": 14.399911471092459,
+            "padding": 4.8,
+            "start": -4.800088528907539,
             "units": "\u00c5"
         }
     },
@@ -178,6 +178,18 @@
                 "radius": {
                     "inner": 50.0,
                     "outer": 180.0,
+                    "units": "mrad"
+                }
+            },
+            "BF": {
+                "centre": {
+                    "units": "mrad",
+                    "x": 0.0,
+                    "y": 0.0
+                },
+                "radius": {
+                    "inner": 0.0,
+                    "outer": 45.0,
                     "units": "mrad"
                 }
             }
