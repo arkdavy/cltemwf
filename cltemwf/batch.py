@@ -9,8 +9,10 @@ import shutil
 
 #print(json.__version__)
 #print(argparse.__version__)
+ensure_ascii=False
+
 def print_dict(dictionary):
-   print(json.dumps(dictionary, indent = 4, sort_keys=True, ensure_ascii=False))
+   print(json.dumps(dictionary, indent = 4, sort_keys=True, ensure_ascii=ensure_ascii))
 
 def argument_parser():
    parser = argparse.ArgumentParser()
@@ -77,7 +79,7 @@ def run_cltem(cif, setup, outdir, files_to_copy, other_args_string):
 
    # dump the config into a temporary json file
    tmpconf = tmp + "/config.json"
-   with open(tmpconf, 'w') as cfg: json.dump(setup.config, cfg, indent = 4, sort_keys=True, ensure_ascii=True)
+   with open(tmpconf, 'w') as cfg: json.dump(setup.config, cfg, indent = 4, sort_keys=True, ensure_ascii=ensure_ascii)
 
    # create the output directories
    tmpout = '{}/{}'.format(tmp, 'outdir'); os.mkdir(tmpout); os.makedirs(outdir, exist_ok=True)
