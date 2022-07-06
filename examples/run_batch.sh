@@ -41,10 +41,14 @@ if $bashiface; then
   cltemwf_batch --help
 
   # call to cltemwf. The extra configuration flag takes a dictionary here, which will be merged onto the default configuration.
-  cltemwf_batch --cif Si.cif --config_extra ${config_extra} --files-to-copy '*.tif,*.json' --outdir 'outdir' -d gpu -s 30,30,10 -z 1,1,0 -n 0,0,1
+  # when running CTEM simulation, extra Diff.json and Diff.tif are prodiced. Files with the same name are produced by CBED calculation
+  # therefore, the recomemndation is to narrow the --files-to-copy pattern in the way below
+  cltemwf_batch --cif Si.cif --config_extra ${config_extra} --files-to-copy 'EW_*.tif,EW_*.json' --outdir 'outdir' --sim CTEM -d gpu -s 30,30,10 -z 1,1,0 -n 0,0,1
+  #cltemwf_batch --cif Si.cif --config_extra ${config_extra} --files-to-copy '*.tif,*.json' --outdir 'outdir' --sim CBED -d gpu -s 30,30,10 -z 1,1,0 -n 0,0,1
+  #cltemwf_batch --cif Si.cif --config_extra ${config_extra} --files-to-copy '*.tif,*.json' --outdir 'outdir' --sim STEM -d gpu -s 30,30,10 -z 1,1,0 -n 0,0,1
 
   # default config is provided by a file on the $config_path
-  #cltemwf_batch --cif Si.cif --config=$config_path --config_extra ${config_extra} --files-to-copy '*.tif' -d gpu -s 30,30,10 -z 1,1,0 -n 0,0,1
+  #cltemwf_batch --cif Si.cif --config=$config_path --config_extra ${config_extra} --files-to-copy './*' --sim STEM -d gpu -s 30,30,10 -z 1,1,0 -n 0,0,1
 
   # or we can set config directly from the dictionary, which makes config_extra practically unnecessary
   #cltemwf_batch --cif Si.cif --config ${config} -d gpu -s 30,30,10 -z 1,1,0 -n 0,0,1

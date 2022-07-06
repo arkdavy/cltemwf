@@ -17,7 +17,8 @@ def print_dict(dictionary):
 def argument_parser():
    parser = argparse.ArgumentParser()
    parser.add_argument('--cif', help='cif file path')
-   parser.add_argument('-c', '--config', help='path containing the (default)config file or the corresponding dictionary')
+   parser.add_argument('-c', '--config', help='path containing the config file or the corresponding dictionary')
+   parser.add_argument('--sim', help='values STEM, CTEM or CBED defining the corresponding default configs to use')
    parser.add_argument('-c_extra', '--config_extra', help='accepts dictionary with fields to substitute in the default config')
    parser.add_argument('-o', '--outdir', help='the output directory path')
    parser.add_argument('-fc', '--files-to-copy', help='comma-separated pattern list of files to be copied from the temporary directory')
@@ -41,11 +42,23 @@ class Config:
 
       return  new_dict
 
-   def __init__(self, config=None):
+   def __init__(self, config=None, sim=None):
+      
+      install_path = Path( __file__ ).parent.absolute()
+      
+      if sim=="STEM": 
+           with open(install_path / 'STEM_config.json') as f: self.config = json.load(f)
+      elif sim=="CTEM": 
+           with open(install_path / 'CTEM_config.json') as f: self.config = json.load(f)
+      elif sim=="CBED": 
+           with open(install_path / 'CBED_config.json') as f: self.config = json.load(f)
+      elif sim is not None: 
+           raise ValueError("unknown --sim value")
+          
+      if (sim is not None): return
 
       if config is None:
-           config = Path( __file__ ).parent.absolute()
-           with open(config / 'default_config.json') as f: self.config = json.load(f)
+           with open(install_path / 'STEM_config.json') as f: self.config = json.load(f)
       elif (isinstance(config, dict)):
            self.config = config
       elif (isinstance(config, str) and config[0]=="{" and config[-1]=="}"):
@@ -100,12 +113,12 @@ def run_cltem(cif, setup, outdir, files_to_copy, other_args_string):
    shutil.rmtree(tmp)
 
 
-def run_pyiface(cif=None, config=None, config_extra=None, outdir='outdir', files_to_copy='*.tif,*.png', other_args_string='-d gpu -s 2,2,2 -z 0,0,1'):
+def run_pyiface(cif=None, sim=None, config=None, config_extra=None, outdir='outdir', files_to_copy='*.tif,*.png', other_args_string='-d gpu -s 2,2,2 -z 0,0,1'):
    
    print("\n... Entered run_pyiface() ...\n")
 
    # init the Config class object
-   setup = Config(config=config)
+   setup = Config(config=config, sim=sim)
 
    # update the configuration if extra dictionary is given
    if (config_extra): setup.update_config(config_extra)
@@ -115,7 +128,7 @@ def run_pyiface(cif=None, config=None, config_extra=None, outdir='outdir', files
 
    return
 
-def run_batch(cif=None, config=None, config_extra=None, outdir='outdir', files_to_copy='*.tif,*.png', other_args_string='-d gpu -s 2,2,2 -z 0,0,1'):
+def run_batch(cif=None, sim=None, config=None, config_extra=None, outdir='outdir', files_to_copy='*.tif,*.png', other_args_string='-d gpu -s 2,2,2 -z 0,0,1'):
    
    print("\n... Entered run_batch() ...\n")
 
@@ -137,6 +150,9 @@ def run_batch(cif=None, config=None, config_extra=None, outdir='outdir', files_t
        # re-init the config class with a new default configuration
        if (arg=='config' and val): setup = Config(config=val)
  
+       # re-init the config class with a new default configuration
+       if (arg=='sim' and val): setup = Config(sim=val)
+
        # update the configuration if the extra flag is given
        if (arg=='config_extra'and val): 
          cleaned_extra_config = setup.clean_config_keys(json.loads(val))

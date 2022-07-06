@@ -1,0 +1,94 @@
+{
+    "ctem": {
+        "area": {
+            "x": {
+                "finish": 18.2799,
+                "start": 10.6
+            },
+            "y": {
+                "finish": 15.5305,
+                "start": 10.1
+            }
+        },
+        "simulate image": false
+    },
+    "default padding": {
+        "xy": {
+            "units": "Å",
+            "val": 8.0
+        },
+        "z": {
+            "units": "Å",
+            "val": 3.0
+        }
+    },
+    "double precision": false,
+    "filename": "Si.cif",
+    "full 3d": {
+        "state": false
+    },
+    "intermediate output": {
+        "enabled": false,
+        "slice interval": 0
+    },
+    "maintain areas": true,
+    "microscope": {
+        "beam tilt": {
+            "azimuth": {
+                "units": "°",
+                "val": 0.0
+            },
+            "inclination": {
+                "units": "mrad",
+                "val": 0.0
+            }
+        },
+        "voltage": {
+            "units": "kV",
+            "val": 200.0
+        }
+    },
+    "mode": {
+        "id": 1,
+        "name": "CTEM"
+    },
+    "potentials": "kirkland",
+    "precalculate transmission": true,
+    "resolution": 1024,
+    "simulation area": {
+        "x": {
+            "finish": 26.2799,
+            "padding": 8.0,
+            "start": 2.5999999999999996,
+            "units": "Å"
+        },
+        "y": {
+            "finish": 24.6552,
+            "padding": 8.0,
+            "start": 0.975299999999999,
+            "units": "Å"
+        },
+        "z": {
+            "finish": 14.399911471092459,
+            "padding": 4.8,
+            "start": -4.800088528907539,
+            "units": "Å"
+        }
+    },
+    "simulation time": {
+        "hours": 0,
+        "microseconds": 525,
+        "milliseconds": 191,
+        "minutes": 0,
+        "seconds": 0
+    },
+    "slice count": 10,
+    "slice offset": {
+        "units": "Å",
+        "val": 0.96
+    },
+    "slice thickness": {
+        "units": "Å",
+        "val": 1.92
+    }
+}
